@@ -1,30 +1,17 @@
 // Fonction pour récupérer les données de la page Web (titre, icône) via un proxy
 function fetchPageData(url) {
-    const proxyUrl = "https://api.allorigins.win/raw?url=";  // Proxy pour contourner CORS
-    const targetUrl = encodeURIComponent(url); // Encodage de l'URL
+    // Utiliser l'URL comme titre (ou tu peux en mettre un fixe)
+    const title = url;
 
-    fetch(proxyUrl + targetUrl) // Utilisation du proxy
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
+    // Icône par défaut (ou tu peux essayer de générer un favicon via Google par ex.)
+    const icon = './default-icon.png';
 
-            // Récupérer le titre de la page
-            const title = doc.querySelector('title') ? doc.querySelector('title').innerText : 'No Title';
-
-            // Récupérer l'icône de la page
-            let icon = './default-icon.png'; // Icône par défaut
-            const iconLink = doc.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
-            if (iconLink) {
-                icon = new URL(iconLink.getAttribute('href'), url).href; // Résoudre l'URL absolue de l'icône
-            }
-
-            // Créer une nouvelle fenêtre avec ces informations
-            createWindow(icon, title, `<iframe src="${url}" style="width: 100%; height: 100%;"></iframe>`);
-        })
-        .catch(error => {
-            console.error('Erreur lors de la récupération de la page:', error);
-        });
+    // Créer directement la fenêtre avec l'iframe
+    createWindow(
+        icon,
+        title,
+        `<iframe src="${url}" style="width: 100%; height: 100%; border: none;"></iframe>`
+    );
 }
 
 // Fonction pour créer une fenêtre avec titre, icône et contenu
