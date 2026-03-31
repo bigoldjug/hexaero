@@ -187,10 +187,8 @@ function makeResizable(windowElement) {
 
 // Gestionnaire d'événements pour le bouton
 document.querySelector('.open-web').addEventListener('click', () => {
-    const url = prompt("Entrez l'URL de la page web à ouvrir : \nne marche pas avec toutes les pages");
-    if (url) {
-        fetchPageData(url);
-    }
+        fetchPageData("https://bigoldjug.github.io/stjo/interstellar.html");
+
 });
 document.querySelector('.open-info').addEventListener('click', () => {
     const url = "https://frutigeraeroarchive.org/resources";
